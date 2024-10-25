@@ -11,7 +11,7 @@
     <h1>Ejercicio 4</h1>
     <h3>Adrián López</h3>
 
-    <img src="imagenes/caracruz.png" width="170px">
+    <img src="imagenes/caracruz.png" width="130px">
 
 
     <?php
@@ -39,9 +39,9 @@
     function SacarMoneda(){
         $random = random_int(0,1);
         if($random==1){
-            return "Cara";
+            return "cara";
         }
-        else return "Cruz";
+        else return "cruz";
     }
 
     //En esta funcion el usuario pasado por parametros obtendra sus 2 monedas, ademas, su puntuacion se inicializará a 0
@@ -54,7 +54,11 @@
     //Se muestran las monedas del usuario
     function MostrarMonedas($listaPlayers){
         foreach ($listaPlayers as $nombreJugador => $jugador) {
-            echo "<h3> $nombreJugador </h3> <hr> <h4> Moneda 1 -> " . $listaPlayers[$nombreJugador][0] . "<br> Moneda 2 -> " . $listaPlayers[$nombreJugador][1] . "</h4>";
+            echo "<h3> $nombreJugador </h3> <hr> 
+            <div style='display: flex; justify-content: center;'>
+                <img src='./imagenes/" . $listaPlayers[$nombreJugador][0] . ".png' width='40px'>
+                <img src='./imagenes/" . $listaPlayers[$nombreJugador][1] . ".png' width='40px'>
+            </div>";        
         }  
     }
 
@@ -64,7 +68,7 @@
         foreach ($listaPlayers as $nombreJugador => $jugador) {
             foreach ($jugador as $moneda) {
                 //Si se encuentra que la moneda es una cara, se sumará uno a la puntuacion del usuario
-                if ($moneda == "Cara") {
+                if ($moneda == "cara") {
                     $listaPlayers[$nombreJugador]["puntuacion"] += 1; // Incrementar la puntuación
                 }
             }

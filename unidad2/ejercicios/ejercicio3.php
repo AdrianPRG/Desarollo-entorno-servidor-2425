@@ -9,7 +9,7 @@
 <body>
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
         <img src="imagenes/poker.png" width="100px" class="mb-3">
-        <h1 style="font-family:'Times New Roman', Times, serif;font-style:italic">Bienvenido al juego de cartas - ALG</h1>
+        <h2 style="font-family:'Times New Roman', Times, serif;font-style:italic">Bienvenido al juego de cartas - ALG</h2>
         <hr>
         <?php
         
@@ -52,16 +52,16 @@
         while($carta2==$carta1);
 
         //Este div colocará las dos cartas en horizontal para que se muestren
-        echo "<div style='display: flex;text-align:center'>";
+        echo "<div style='display: flex;text-align:center;justify-content:center'>";
 
         //Se mostrará la primera carta
             echo "<div class='ms-5'>
-                <img src='imagenes/$carta1.png' width=240px>
+                <img src='imagenes/$carta1.png' width=170px>
             </div>";
 
         //Se mostrará la segunda carta
             echo "<div class='ms-5'>
-                <img src='imagenes/$carta2.png' width=240px>
+                <img src='imagenes/$carta2.png' width=170px>
             </div>";
         
         echo "</div> <hr>";
