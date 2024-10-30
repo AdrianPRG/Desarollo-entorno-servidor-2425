@@ -11,43 +11,51 @@
         
         //Si esta definido el input, es decir, ya se ha enviado un numero , se ejecuta el codigo
         if(isset($_GET["input"]) && isset($_GET["intento"]) && isset($_GET["random"])){
+            $ganado=$_GET["gana"];
             $numero_obtenido = $_GET["input"];
             $intento = $_GET["intento"];
             $random = $_GET["random"];
+            $texto = $_GET["txt"];
 
-            //Si no se han acabado los intentos, el usuario puede permitir insertar numeros
-           if($intento>1){
-            //Si ha acertado el numero, se imprime por pantalla.
+
+            if($ganado==true){
+                $texto="No puedes volver a introducir";
+            }else{
+                //Si no se han acabado los intentos, el usuario puede permitir insertar numeros
                 if($numero_obtenido==$random){
-                    echo "ganaste"; 
+                    $texto="Ganaste!";
+                    $ganado=true;
                 }
-                else {
-                    //Si ha fallado, se resta un intento
-                    $intento--;
-                    //Si el numero obtenido está a cinco posiciones, se imprime lo siguiente
-                    if(abs($numero_obtenido-$random)<=5 || abs($random-$numero_obtenido)<=5){
-                        echo "Calentito Totalis!";
-                    }
-                    //Si esta a mayor posicion, se calcula si es mayor a el o menor
-                    else{
-                        if($numero_obtenido>$random){
-                            echo "No es el resultado, es mayor al valor";
-                        }
-                        else if ($numero_obtenido<$random){
-                            echo "No es el resultado, es menor al valor";
-                        }
-                    }
+                else{
+                    if($intento>=1){
+                        $intento--;
+    
+                               //Si el numero obtenido está a cinco posiciones, se imprime lo siguiente
+                               if(abs($numero_obtenido-$random)<=5 || abs($random-$numero_obtenido)<=5){
+                                   $texto="Calentito Totalis!";
+                               }
+                               //Si esta a mayor posicion, se calcula si es mayor a el o menor
+                               else{
+                                   if($numero_obtenido>$random){
+                                       $texto= "Incorrecto, es mayor al valor";
+                                   }
+                                   else if ($numero_obtenido<$random){
+                                       $texto=  "Incorrecto, es menor al valor";
+                                   }
+                               }
+                           }
+                   else $texto = "Te has quedado sin intentos";
                 }
-           }
-           else{
-            $texto = "Te has quedado sin intentos";
-           }
+            }
+        
         }
+            
         //Si no, se inicializan los valores de intentos y random
         else{
             $texto="";
             $intento=6;
             $random = rand(1,30);
+            $ganado=false;
         }
     
         ?>
@@ -57,12 +65,13 @@
                 <form method="get" action="ejercicio5.php">
                     <label for="input" style="font-family:'Times New Roman', Times, serif;font-size:x-large" class="form-label">Introduce un numero</label>
                     <input type="number" required class="form-control" name="input" id="input" aria-describedby="helpId" placeholder="Numero.."/>
-                    <input type="text" readonly class="form-control" name="txt" id="txt">
+                    <input style="text-align: center;font-weight:bold;font-size:14px" type="text" readonly class="form-control mt-3 mb-2" name="txt" id="txt" value="<?php echo $texto  ?>">
                     <b> <?php ($intento>=1) ? print "Numero de intentos " . $intento : print "Se han acabado los intentos"  ?></b>
                     <input type="hidden" id="intento" name="intento" value="<?php echo $intento ?>">
-                    <input id="random" name="random" value="<?php echo $random ?>">
-                    <br>
-                    <input type="submit" class="btn btn-primary">
+                    <input type="hidden" id="random" name="random" value="<?php echo $random ?>">
+                    <input type="hidden" id="gana" name="gana" value="<?php echo $ganado ?>">
+                    <input type="submit" class="btn btn-primary mt-2">
+                    
                 </form>
             </div>
         </div>
