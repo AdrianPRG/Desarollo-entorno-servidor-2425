@@ -27,7 +27,7 @@
                     $ganado=true;
                 }
                 else{
-                    if($intento>=1){
+                    if($intento!=0){
                         $intento--;
     
                                //Si el numero obtenido está a cinco posiciones, se imprime lo siguiente
@@ -64,14 +64,16 @@
             <div class="m-5 col-sm-8"> 
                 <form method="get" action="ejercicio5.php">
                     <label for="input" style="font-family:'Times New Roman', Times, serif;font-size:x-large" class="form-label">Introduce un numero</label>
-                    <input type="number" required class="form-control" name="input" id="input" aria-describedby="helpId" placeholder="Numero.."/>
+                    <input style="text-align: center;" type="number" required class="form-control" name="input" id="input" aria-describedby="helpId" placeholder="Numero.."/>
                     <input style="text-align: center;font-weight:bold;font-size:14px" type="text" readonly class="form-control mt-3 mb-2" name="txt" id="txt" value="<?php echo $texto  ?>">
                     <b> <?php ($intento>=1) ? print "Numero de intentos " . $intento : print "Se han acabado los intentos"  ?></b>
                     <input type="hidden" id="intento" name="intento" value="<?php echo $intento ?>">
                     <input type="hidden" id="random" name="random" value="<?php echo $random ?>">
                     <input type="hidden" id="gana" name="gana" value="<?php echo $ganado ?>">
                     <input type="submit" class="btn btn-primary mt-2">
-                    
+                </form>
+                <form method="get" action="ejercicio5.php">
+                      <input type="submit" class="btn btn-secondary mt-3" value="Reiniciar">
                 </form>
             </div>
         </div>
