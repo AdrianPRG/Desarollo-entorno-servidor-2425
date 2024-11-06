@@ -9,13 +9,13 @@
     <body style="background-color: #e0a0f2;">
         <?php 
         
-        //Si esta definido el input, es decir, ya se ha enviado un numero , se ejecuta el codigo
-        if(isset($_GET["input"]) && isset($_GET["intento"]) && isset($_GET["random"])){
-            $ganado=$_GET["gana"];
-            $numero_obtenido = $_GET["input"];
-            $intento = $_GET["intento"];
-            $random = $_GET["random"];
-            $texto = $_GET["txt"];
+        //Si esta definido los campos, es decir, ya ha empezado la "partida", se ejecuta el codigo principal
+        if(isset($_POST["input"]) && isset($_POST["intento"]) && isset($_POST["random"])){
+            $ganado=$_POST["gana"];
+            $numero_obtenido = $_POST["input"];
+            $intento = $_POST["intento"];
+            $random = $_POST["random"];
+            $texto = $_POST["txt"];
 
 
             if($ganado==true){
@@ -23,6 +23,7 @@
             }else{
                 //Si no se han acabado los intentos, el usuario puede permitir insertar numeros
                 if($numero_obtenido==$random){
+                    $intento--;
                     $texto="Ganaste!";
                     $ganado=true;
                 }
@@ -47,7 +48,6 @@
                    else $texto = "Te has quedado sin intentos";
                 }
             }
-        
         }
             
         //Si no, se inicializan los valores de intentos y random
@@ -59,10 +59,15 @@
         }
     
         ?>
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-            <img src="imagenes/ej5.png" width="210px">
+        <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            <div>
+                <b style="font-family:'Times New Roman', Times, serif">Adivina el numero - ALG</b>
+            </div>
+            <div class="mt-4">
+                <img src="imagenes/ej5.png" width="130px">
+            </div>
             <div class="m-5 col-sm-8"> 
-                <form method="get" action="ejercicio5.php">
+                <form method="post" action="ejercicio5.php">
                     <label for="input" style="font-family:'Times New Roman', Times, serif;font-size:x-large" class="form-label">Introduce un numero</label>
                     <input style="text-align: center;" type="number" required class="form-control" name="input" id="input" aria-describedby="helpId" placeholder="Numero.."/>
                     <input style="text-align: center;font-weight:bold;font-size:14px" type="text" readonly class="form-control mt-3 mb-2" name="txt" id="txt" value="<?php echo $texto  ?>">

@@ -8,9 +8,7 @@
 </head>
 <body style="background-color: #cfe6d5;">
     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;width:500px">
-    
     <form method="post" action="../ejercicios/archivos_ej8/webcompleta.php">
-        
             <div class="mb-3">
                 <label for="cabecera" class="form-label">Cabecera</label>
                 <div style="display: flex;">
@@ -55,22 +53,11 @@
                 </select>
                 </div>
             </div>
-
             <div class="mb-3 mt-4" >
-                <input
-                    type="submit"
-                    class="form-control btn btn-primary"
-                    name="enviar"
-                    id="enviar"
-                    aria-describedby="helpId"
-                    placeholder=""
-                />
+                <input type="submit" class="form-control btn btn-primary" name="enviar" id="enviar" aria-describedby="helpId" placeholder="" />
                 <small id="helpId" class="form-text text-muted">Pulse para enviar</small>
             </div>
-        
     </form>
-
-    </div>
-    
+    </div>   
 </body>
 </html>

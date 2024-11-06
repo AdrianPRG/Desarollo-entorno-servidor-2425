@@ -62,7 +62,6 @@
         }  
     }
 
-
     function Ganador(&$listaPlayers) {
         // Contar caras de cada jugador
         foreach ($listaPlayers as $nombreJugador => $jugador) {
@@ -73,7 +72,6 @@
                 }
             }
         }
-
         //Se comprueba quien es el ganador, en base a los puntos obtenidos, y se imprimen los resultados
         if($listaPlayers["Jugador1"]["puntuacion"]>$listaPlayers["Jugador2"]["puntuacion"]){            
             echo "<h2> Ganador jugador 1 </h2>";
@@ -85,12 +83,7 @@
         else echo "<h2 style='color:blue'> EMPATE </h2>";
     }
     
-    
-
     ?>
-
     </div>
-
-    
 </body>
 </html>

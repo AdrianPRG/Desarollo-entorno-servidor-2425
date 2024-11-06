@@ -13,22 +13,40 @@
         if(isset($_POST["cadena"]) && isset($_POST["ronda"]) && isset($_POST["listaPlayer1"]) && isset($_POST["listaPlayer2"])){
             
             $cadena = $_POST["cadena"];
+            $ganada=$_POST["ganada"];
             $ronda=$_POST["ronda"];
             $listaPlayer1 = $_POST["listaPlayer1"];
             $listaPlayer2 = $_POST["listaPlayer2"];
 
-            SacarMano($listaPlayer1,$listaPlayer2);
-            DeterminarGanadorRonda($listaPlayer1,$listaPlayer2,$cadena);
-            
+            if($ganada==false){
+                if($listaPlayer1[2]<=3 || $listaPlayer2[2]<=3){
+                    SacarMano($listaPlayer1,$listaPlayer2);
+                    DeterminarGanadorRonda($listaPlayer1,$listaPlayer2,$cadena);
+                    $ronda++;
+                }
+                else{
+                    if($listaPlayer1[2]>=3){
+                        $cadena="Jugador 1 Es el Ganador";
+                    }
+                    else if($listaPlayer2[2]>=3){
+                        $cadena="Jugador 2 es el ganador";
+                    }
+                    $ganada=true;
+                }
+            }
+            else $cadena="Ya hay un ganador";
+
         }
         else{
+            //Aqui estan definidos las variables que se usarán en el codigo
+            $ganada = false;
             $cadena="";
             $ronda=0;
             //Recordatorio: Para pasar un array, SIEMPRE, hay que inicializarlo desde cero, por que aun que este bien definido, php dira
             //Que no se encuentra ningun dato POST/GET con el nombre que le hemos dado
             //Inicializarlo siemore
-            $listaPlayer1 = ["Jugador1","",0];
-            $listaPlayer2 = ["Jugador2","",0];
+            $listaPlayer1 = ["Jugador1","null",0];
+            $listaPlayer2 = ["Jugador2","null",0];
         }
 
 
@@ -110,7 +128,8 @@
         ?>
 
             <form method="post">
-                <div style="justify-content: center;background-color:aliceblue;" class="mb-3">
+                <h4 style="font-family:'Times New Roman', Times, serif;">Piedra, papel, tijeras, lagarto y spock <br> ALG</h4>
+                <div style="justify-content: center;background-color:aliceblue;" class="mt-3 mb-3">
                     <?php  
                         foreach($listaPlayer1 as $valor){
                             echo '<input type="hidden" name="listaPlayer1[]" value="' . $valor . '">';
@@ -119,7 +138,9 @@
                             echo '<input type="hidden" name="listaPlayer2[]" value="' . $valor2 . '">';
                         }
                     ?>
+                    <input type="hidden" name="ganada" id="ganada" value="<?php echo $ganada ?>">
                     <input type="hidden" name="ronda" id="ronda" value="<?php echo $ronda ?>">
+                    <h5>Ronda: <?php echo $ronda ?></h5>
                     <div style="display: flex;">
                         <div style="width: 100%;height:200px;background-color:#decd9e;padding-top:20px">
                             <h4>Jugador 1</h4>
@@ -132,9 +153,12 @@
                     </div>
                     <div style="justify-content:center;display:flex;flex-direction:column;align-items:center;padding:20px">
                         <input style="width: 400px;text-align:center" type="text" readonly  name="cadena" id="cadena" value="<?php echo $cadena ?>">
-                        <input style="width:100px;margin-top:20px" class="form-control btn-primary btn" type="submit" aria-describedby="helpId">
+                        <input style="width:100px;margin-top:20px" class="form-control btn-primary btn" type="submit" value="Jugar" aria-describedby="helpId">
                     </div>
                 </div>
+            </form>
+            <form>
+                <input style="width:100px;margin-top:20px" value="Reset" class="form-control btn-secondary btn" type="submit" aria-describedby="helpId">
             </form>
         </div>
     </body>
