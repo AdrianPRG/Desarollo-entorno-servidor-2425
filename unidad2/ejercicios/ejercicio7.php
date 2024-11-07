@@ -17,51 +17,63 @@
 
     <?php
 
-        if (isset($_POST["carta"]) && isset($_POST["manojugador"]) && $_POST["nuevamano"]) {
-            $carta_aleatoria=$_POST["carta"];
-            $mano_Jugador=$_POST["manojugador"];
-            $nueva_mano=$_POST["nuevamano"];
-            $lista_cartas=$_POST["listacartas"];
-
-            if($nueva_mano=="nuevamano"){
-                $mano_Jugador=[];
-                for ($i=0; $i<4; $i++) { 
-                    do{
-                        $carta_mano=$lista_cartas[array_rand($lista_cartas)];
-                    }
-                    while(in_array($carta_mano,$mano_Jugador)==true);
-                    array_push($mano_Jugador,$carta_mano);
-                }
-            }
-            else{
-                foreach ($iterable as $item) {
-                    
-                }
-            }
-        } 
-        else {
-            $carta_aleatoria="CartaVolteada";
-            $mano_Jugador=array();
-            $lista_cartas = array();
-            $Colores_cartas = array("Rojo","Azul");
+if (isset($_POST["carta"]) && isset($_POST["manojugador"])) {
+    $carta_aleatoria = $_POST["carta"];
+    $mano_Jugador = $_POST["manojugador"];
+    $lista_cartas = $_POST["listacartas"];
+    $cadena = $_POST["cadena"];
     
-            for($i=0;$i<count($Colores_cartas);$i++){
-                for($x=1;$x<6;$x++){
-                    array_push($lista_cartas,$x . "_" . $Colores_cartas[$i]);
-                }
-            }
-            for ($i=0; $i<4; $i++) { 
-                do{
-                    $carta_mano=$lista_cartas[array_rand($lista_cartas)];
-                }
-                while(in_array($carta_mano,$mano_Jugador)==true);
-                array_push($mano_Jugador,$carta_mano);
-            }
+    foreach ($mano_Jugador as $carta) {
+        if (substr($carta, 3) == substr($carta_aleatoria, 3)) {
+            $cadena = "¡Lo has adivinado!";
+            break;
         }
+    }
+
+    // Si se envió la acción "nuevamano" desde el formulario, se genera una nueva mano
+    if (isset($_POST["nuevamano"])) {
+        $mano_Jugador = [];
+        for ($i = 0; $i < 4; $i++) { 
+            do {
+                $carta_mano = $lista_cartas[array_rand($lista_cartas)];
+            } while (in_array($carta_mano, $mano_Jugador));
+            array_push($mano_Jugador,$carta_mano);
+        }
+    }
+} else {
+    // Inicialización de variables cuando se carga la página por primera vez
+    $cadena = "";
+    $carta_aleatoria = "";
+    $mano_Jugador = [];
+    $lista_cartas = [];
+    $Colores_cartas = ["Rojo", "Azul"];
+
+    // Generar las cartas posibles
+    foreach ($Colores_cartas as $color) {
+        for ($x = 1; $x < 6; $x++) {
+            $lista_cartas[] = $x . "_" . $color;
+        }
+    }
+
+    // Generar la mano inicial del jugador
+    for ($i = 0; $i < 4; $i++) { 
+        do {
+            $carta_mano = $lista_cartas[array_rand($lista_cartas)];
+        } while (in_array($carta_mano, $mano_Jugador));
+        $mano_Jugador[] = $carta_mano;
+    }
+
+    $carta_aleatoria=$lista_cartas[array_rand($lista_cartas)];
+
+}
     ?>
     <div style="flex-direction: column; display: flex; background-color: ghostwhite; align-items: center; width: 80vw; height:80vh; border-radius: 10vh; padding-top: 2vh; border: solid 0.01vh; box-sizing: border-box;">
        
             <form style="width: 100%;" method="post">
+            <div>
+                <input type="hidden" name="cadena" value="<?php echo $cadena ?>">
+                <h3><?php echo $cadena ?></h3>
+            </div>
             <div style="flex-direction: column;width:100%;display:flex;align-items:center">
                 <input type="hidden" name="carta" value="<?php echo $carta_aleatoria ?>">
                 <img src="../ejercicios/imagenes/<?php echo $carta_aleatoria . ".png" ?>" style="width: 15%; max-width: 100%; height: auto;">
@@ -69,8 +81,10 @@
                 <div class="mt-4" style="background-color:azure;width:100%;height:20vh;overflow:hidden;border-radius:0vh 0vh 10vh 10vh;align-items:center;justify-content:center;display:flex">
                     <?php
                     for($i=0;$i<4;$i++){
-                        echo '<input type="hidden" name="manojugador[]" value="' . $mano_Jugador[$i] . '">';
-                        echo "<button type='button' class='me-2' style='background: transparent; border: none; padding: 5px; transform: scale(1);'> <img src='../ejercicios/imagenes/" . $mano_Jugador[$i] . ".png' style='width: 80px; height: 80px; object-fit: contain;'> </button>";
+                        echo '<button type="submit" class="me-2" style="background: transparent; border: none; padding: 5px; transform: scale(1);">
+                        <input type="hidden" name="manojugador[]" value="' . $mano_Jugador[$i] . '">
+                        <img src="../ejercicios/imagenes/' . $mano_Jugador[$i] . '.png" style="width: 80px; height: 80px; object-fit: contain;">
+                            </button>';
                     }
                     for($x=0;$x<count($lista_cartas);$x++){
                         echo '<input type="hidden" name="listacartas[]" value="' . $lista_cartas[$x] . '">';
