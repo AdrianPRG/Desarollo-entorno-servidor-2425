@@ -17,11 +17,30 @@
 
     <?php
 
-        if (isset($_POST["Empieza"])) {
-            
+        if (isset($_POST["carta"]) && isset($_POST["manojugador"]) && $_POST["nuevamano"]) {
+            $carta_aleatoria=$_POST["carta"];
+            $mano_Jugador=$_POST["manojugador"];
+            $nueva_mano=$_POST["nuevamano"];
+            $lista_cartas=$_POST["listacartas"];
+
+            if($nueva_mano=="nuevamano"){
+                $mano_Jugador=[];
+                for ($i=0; $i<4; $i++) { 
+                    do{
+                        $carta_mano=$lista_cartas[array_rand($lista_cartas)];
+                    }
+                    while(in_array($carta_mano,$mano_Jugador)==true);
+                    array_push($mano_Jugador,$carta_mano);
+                }
+            }
+            else{
+                foreach ($iterable as $item) {
+                    
+                }
+            }
         } 
         else {
-            $carta_aleatoria="card1";
+            $carta_aleatoria="CartaVolteada";
             $mano_Jugador=array();
             $lista_cartas = array();
             $Colores_cartas = array("Rojo","Azul");
@@ -31,32 +50,35 @@
                     array_push($lista_cartas,$x . "_" . $Colores_cartas[$i]);
                 }
             }
-            for ($i=0; $i < 4; $i++) { 
+            for ($i=0; $i<4; $i++) { 
                 do{
                     $carta_mano=$lista_cartas[array_rand($lista_cartas)];
                 }
                 while(in_array($carta_mano,$mano_Jugador)==true);
                 array_push($mano_Jugador,$carta_mano);
             }
-            $cadena = "";
-            $empieza ="";
         }
     ?>
     <div style="flex-direction: column; display: flex; background-color: ghostwhite; align-items: center; width: 80vw; height:80vh; border-radius: 10vh; padding-top: 2vh; border: solid 0.01vh; box-sizing: border-box;">
-        <div style="width: 100%; border-radius: 10vh; align-items: center; display: flex; flex-direction: column; padding-top: 2vh;">
-            <img src="../ejercicios/imagenes/<?php echo $carta_aleatoria . ".png" ?>" style="width: 15%; max-width: 100%; height: auto;">
-        </div>
-        
-        <div class="mt-4" style="flex-grow: 1;background-color:azure;width:100%;overflow:hidden;border-radius:0vh 0vh 10vh 10vh;align-items:center;justify-content:center;display:flex">
-            <form method="post">
-                <?php 
-                echo "<button class='me-2' style='background: transparent; border: none; padding: 5px; transform: scale(1);'><img src='../ejercicios/imagenes/" . $mano_Jugador[$i] . ".png' style='width: 80px; height: 80px; object-fit: contain;'></button>";
-
-                ?>
-                <input type="hidden" name="Empieza">
-                <input type="submit" class="ms-3 btn btn-secondary">
+       
+            <form style="width: 100%;" method="post">
+            <div style="flex-direction: column;width:100%;display:flex;align-items:center">
+                <input type="hidden" name="carta" value="<?php echo $carta_aleatoria ?>">
+                <img src="../ejercicios/imagenes/<?php echo $carta_aleatoria . ".png" ?>" style="width: 15%; max-width: 100%; height: auto;">
+            </div>
+                <div class="mt-4" style="background-color:azure;width:100%;height:20vh;overflow:hidden;border-radius:0vh 0vh 10vh 10vh;align-items:center;justify-content:center;display:flex">
+                    <?php
+                    for($i=0;$i<4;$i++){
+                        echo '<input type="hidden" name="manojugador[]" value="' . $mano_Jugador[$i] . '">';
+                        echo "<button type='button' class='me-2' style='background: transparent; border: none; padding: 5px; transform: scale(1);'> <img src='../ejercicios/imagenes/" . $mano_Jugador[$i] . ".png' style='width: 80px; height: 80px; object-fit: contain;'> </button>";
+                    }
+                    for($x=0;$x<count($lista_cartas);$x++){
+                        echo '<input type="hidden" name="listacartas[]" value="' . $lista_cartas[$x] . '">';
+                    }
+                    ?>
+                    <input type="submit" value="nuevamano" name="nuevamano" class="ms-3 btn btn-secondary">
+                </div>
             </form>
-        </div>
     </div> 
 
 </body>
