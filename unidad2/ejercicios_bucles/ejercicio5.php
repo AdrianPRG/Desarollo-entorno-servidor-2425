@@ -24,7 +24,7 @@
     $consonantes=0;
 
     //La lista de consonantes
-    $listaConsonantes = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "ñ", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+    $listaConsonantes = ["a","b", "c", "d", "e","f", "g", "h","i", "j", "k", "l", "m", "n", "ñ", "p","o", "q", "r", "s", "t","u", "v", "w", "x", "y", "z"];
     
     //Se comprueba si se ha mandado un valor "nombre"
     if(isset($_POST["nombre"])){

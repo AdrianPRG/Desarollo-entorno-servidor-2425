@@ -36,7 +36,7 @@
                                     //Se usa la funcion ord, que convierte la palabra a su numero es ASCII
                                     //Como queremos que empieze en 1, restamos a su valor en ASCII menos a, que es el primero. Es como si hiciesemos un calculo matematico
                                     //Se resta de a ya que es el primer numero, si restasemos el mismos ORD siempre seria 1
-                                    $numero+= ord($palabra[$x]) - ord("a") + 1;;
+                                    $numero+= ord($palabra[$x]) - ord("a") + 1;
                                 }
                             }
                             //Se imprime la palabra y su valor numerico
