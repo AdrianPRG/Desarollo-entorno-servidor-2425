@@ -1,3 +1,6 @@
+<?php
+include "lib/funciones.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +49,22 @@
             
             //El isset de media,aritmetica y factorial no se pone, ya que si no estan marcados
             //No se enviará, y puede causar que nunca se entre en este 
+            
             if(isset($_POST["numero"]) && isset($_POST["texto"])){
-                $texto = explode("\n",trim($_POST["texto"]));
-                print_r($texto);
-            }else $cadena="Error";
+                $listaCadenas = explode("\n",trim($_POST["texto"]));
+                switch(count($listaCadenas)){
+                    case 1:
+                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . "</br>");
+                        break;
+                    case 2:
+                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br>  y el total de su suma es " . ( sumaenteros($listaCadenas[0]) + sumaDeFloats($listaCadenas[1])) . "</br>");
+                        break;
+                    case 3:
+                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br>  y el total de su suma es " . ( sumaenteros($listaCadenas[0]) + sumaDeFloats($listaCadenas[1])) . "</br>");
+                        print("La palabra mas larga  " . palabraMasLarga($listaCadenas[2]) . "</br>");
+                        break;
+                }
+            }
 
 
     ?>
