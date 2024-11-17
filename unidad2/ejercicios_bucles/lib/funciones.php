@@ -36,14 +36,24 @@ function sumaDeFloats($cadenaFloats){
 function SumaDeNumeros($cadenaInts,$cadenaFloats,$media,$factorial){
     //Como se pueden devolver varios resultados, esta vez se devolverá un array
     $resultados = [];
+    $resultados[0]=0;
+    $numeros=0;
 
-    $resultados[0] = (sumaenteros($cadenaInts) + sumaDeFloats($cadenaFloats));
-    $numeros =  (int) array_filter(explode(",",$cadenaInts),'is_numeric') + array_filter(explode(",",$cadenaInts),'is_numeric');
+    $cadenaUnificada = explode("," , $cadenaInts . $cadenaFloats);
+
+    foreach ($cadenaUnificada as $num) {
+        if(is_nan((float)$num)==false || is_numeric((int)$num)){
+            $resultados[0]+=(int)$num;
+            $numeros++;
+        }
+    }
+
 
     $resultados[1] = ($media==true) ? $resultados[0]/$numeros : "Sin media";
 
     return $resultados;
 }
+
 
 function palabraMasLarga($cadenas){
     $listaPalabras = explode(",",$cadenas);

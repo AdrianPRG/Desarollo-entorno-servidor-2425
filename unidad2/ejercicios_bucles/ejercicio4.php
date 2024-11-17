@@ -54,22 +54,22 @@ include "lib/funciones.php";
                 $listaCadenas = explode("\n",trim($_POST["texto"]));
                 $media = isset($_POST["Media"]) ? true : false;
                 $factorial = isset($_POST["factorial"]) ? true : false;
+                $resultados = SumaDeNumeros($listaCadenas[0],$listaCadenas[1],$media,$factorial);
+
 
                 switch(count($listaCadenas)){
                     case 1:
-                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . "</br>");
+                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . "</br>");
                         break;
                     case 2:
-                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . "</br>");
+                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> 2. La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . "</br>");
                         break;
                     case 3:
-                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br> La suma total de numeros es " . SumaDeNumeros($listaCadenas[0],$listaCadenas[1],$media,$factorial)[0] . "</br>");
-                        print("La palabra mas larga  " . palabraMasLarga($listaCadenas[2]) . "</br>");
+                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> 2. La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br> 3. La suma total de numeros es " . $resultados[0]  . "</br>");
+                        print("4. La palabra mas larga  " . palabraMasLarga($listaCadenas[2]) . " <br> 5. La Media: " . $resultados[1] .  "</br>");
                         break;
                 }
             }
-
-
     ?>
 </div>
 </body>
