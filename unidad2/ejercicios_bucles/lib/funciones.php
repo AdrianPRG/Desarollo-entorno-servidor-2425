@@ -1,7 +1,7 @@
 <?php
 
-function sumaenteros($array){
-    $listaNumeros = explode(",",$array);
+function sumaenteros($cadenaInts){
+    $listaNumeros = explode(",",$cadenaInts);
     if(count($listaNumeros)<1){
         return 0;
     }
@@ -32,6 +32,18 @@ function sumaDeFloats($cadenaFloats){
             return $suma;
         }
     }
+
+function SumaDeNumeros($cadenaInts,$cadenaFloats,$media,$factorial){
+    //Como se pueden devolver varios resultados, esta vez se devolverá un array
+    $resultados = [];
+
+    $resultados[0] = (sumaenteros($cadenaInts) + sumaDeFloats($cadenaFloats));
+    $numeros =  (int) array_filter(explode(",",$cadenaInts),'is_numeric') + array_filter(explode(",",$cadenaInts),'is_numeric');
+
+    $resultados[1] = ($media==true) ? $resultados[0]/$numeros : "Sin media";
+
+    return $resultados;
+}
 
 function palabraMasLarga($cadenas){
     $listaPalabras = explode(",",$cadenas);

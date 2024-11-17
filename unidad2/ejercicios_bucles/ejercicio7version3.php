@@ -20,8 +20,6 @@
                 <input class="mt-2 btn btn-warning" type="submit" value="reset">
             </form>
             <?php
-
-
                 if(isset($_POST["palabra"]) || isset($_POST["palabra2"])){
                     $palabra1=$_POST["palabra"];
                     $palabra2=$_POST["palabra2"];
@@ -39,7 +37,6 @@
                     }
                     else echo "Una de las cadenas es erronea";
                 }
-
                 function comprobarValor($palabra){
                     $letras = ["a" => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5, 'f' => 6, 'g' => 7, 'h' => 8, 'i' => 9, 'j' => 10, 'k' => 11, 'l' => 12, 'm' => 13, 'n' => 14, 'o' => 15, 'p' => 16, 'q' => 17, 'r' => 18, 's' => 19, 't' => 20, 'u' => 21, 'v' => 22, 'w' => 23, 'x' => 24, 'y' => 25, 'z' => 26];
                     $numero=0;
@@ -68,8 +65,7 @@
                     }
                     //Para cuando se introduzca una cadena vacia o un espacio
                     else return false;
-                }
-                
+                }  
             ?>
         </div>
     </body>

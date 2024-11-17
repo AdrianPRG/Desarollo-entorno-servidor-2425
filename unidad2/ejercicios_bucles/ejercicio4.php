@@ -52,15 +52,18 @@ include "lib/funciones.php";
             
             if(isset($_POST["numero"]) && isset($_POST["texto"])){
                 $listaCadenas = explode("\n",trim($_POST["texto"]));
+                $media = isset($_POST["Media"]) ? true : false;
+                $factorial = isset($_POST["factorial"]) ? true : false;
+
                 switch(count($listaCadenas)){
                     case 1:
                         print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . "</br>");
                         break;
                     case 2:
-                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br>  y el total de su suma es " . ( sumaenteros($listaCadenas[0]) + sumaDeFloats($listaCadenas[1])) . "</br>");
+                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . "</br>");
                         break;
                     case 3:
-                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br>  y el total de su suma es " . ( sumaenteros($listaCadenas[0]) + sumaDeFloats($listaCadenas[1])) . "</br>");
+                        print("La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br> La suma total de numeros es " . SumaDeNumeros($listaCadenas[0],$listaCadenas[1],$media,$factorial)[0] . "</br>");
                         print("La palabra mas larga  " . palabraMasLarga($listaCadenas[2]) . "</br>");
                         break;
                 }
