@@ -10,7 +10,7 @@ include "lib/funciones.php";
     <style>
         .container {
             background-color: aliceblue;
-            max-width: 100%; /* Limita el ancho del contenedor */
+            max-width: 100%; 
             padding: 20px;
         }
     </style>
@@ -21,8 +21,9 @@ include "lib/funciones.php";
 <div class="container">
     <form method="post" action="ejercicio4.php">
         <div class="mb-3">
-            <label for="numero" class="form-label">Numero</label>
-            <input type="number" min=1 max=10 class="form-control col-sm-4" name="numero" id="numero" placeholder="Introduce un numero" />
+            <label for="numero" class="form-label">Numero (1-10)</label>
+            <br>
+            <input type="range" min=1 max=10  class=" col-sm-4" name="numero" id="numero" />
         </div>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="Media" value="Media" id="Media" />
@@ -43,34 +44,46 @@ include "lib/funciones.php";
             <label for="textarea" class="form-label">Lineas </label>
             <textarea class="form-control" name="texto" value="texto" id="texto" rows="3"></textarea>
         </div>
-        <input type="submit">
+        <input type="submit" class="btn btn-primary">
     </form>
     <?php
             
-            //El isset de media,aritmetica y factorial no se pone, ya que si no estan marcados
-            //No se enviará, y puede causar que nunca se entre en este 
-            
             if(isset($_POST["numero"]) && isset($_POST["texto"])){
+                //se obtienen los valores del formulario
+                $numero = $_POST["numero"];
                 $listaCadenas = explode("\n",trim($_POST["texto"]));
                 $media = isset($_POST["Media"]) ? true : false;
                 $factorial = isset($_POST["factorial"]) ? true : false;
-                $resultados = SumaDeNumeros($listaCadenas[0],$listaCadenas[1],$media,$factorial);
+                $resultados = [];
 
+                //Se guarda cada valor dependiendo de si el indice existe o no, para ello se utiliza ternarios con isset
 
-                switch(count($listaCadenas)){
-                    case 1:
-                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . "</br>");
-                        break;
-                    case 2:
-                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> 2. La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . "</br>");
-                        break;
-                    case 3:
-                        print("1. La suma de los numeros enteros es " . sumaenteros($listaCadenas[0]) . " <br> 2. La suma de los numeros float es " . sumaDeFloats($listaCadenas[1]) . " <br> 3. La suma total de numeros es " . $resultados[0]  . "</br>");
-                        print("4. La palabra mas larga  " . palabraMasLarga($listaCadenas[2]) . " <br> 5. La Media: " . $resultados[1] .  "</br>");
-                        break;
+                $resultados["SumadeEnteros"] = sumaenteros($listaCadenas[0]);
+                $resultados["SumadeFloats"] = isset($listaCadenas[1]) ? sumaDeFloats($listaCadenas[1]) : "No calculado";
+                $resultados["SumadeTodos"] = isset($listaCadenas[1]) ? SumaDeNumeros($listaCadenas) : "No calculado";
+                $resultados["PalabraMasLarga"] = isset($listaCadenas[2]) ? palabraMasLarga($listaCadenas[2]) : "No calculado";
+                $resultados["Media"] =  ($media==true) ? calcularMedia($listaCadenas) : "No marcado en checkbox";
+                $resultados["Factorial"] =  ($factorial==true) ? factorialNumero($numero) : "No marcado en checkbox";
+
+                 echo "<table class='table'>";
+
+                foreach($resultados as $clave => $valor){
+                    
+                    //Se imprime cada clave con su valor
+
+                    echo " <tr>
+                                <th> {$clave} </th>
+                                <td> {$valor} </td>
+                            </tr>";
                 }
+
+                echo "</table>";
             }
     ?>
+    <form>
+        <!--Para resetear el formulario -->
+        <input type="submit" class="btn btn-warning" value="Reset">
+    </form>
 </div>
 </body>
 </html>
